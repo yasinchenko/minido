@@ -10,8 +10,8 @@ class AuthService {
   Future<UserModel> login(String username, String password) async {
     final response = await http.post(
       Uri.parse('$_baseUrl/auth/login'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'username': username, 'password': password}),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: 'username=$username&password=$password',
     );
 
     if (response.statusCode == 200) {
