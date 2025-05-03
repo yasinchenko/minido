@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../data/models/task_model.dart';
+import 'package:minido/data/models/task_model.dart';
 import '../providers/task_provider.dart';
 
 class TaskListScreen extends ConsumerWidget {

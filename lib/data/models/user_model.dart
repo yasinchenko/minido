@@ -1,16 +1,21 @@
 // lib/presentation/providers/auth_provider.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../data/services/auth_service.dart';
-import '../../../data/models/user_model.dart';
+import 'package:minido/data/services/auth_service.dart';
+import 'package:minido/data/models/user_model.dart';
 
-// lib/data/models/user_model.dart
 class UserModel {
-  final String token;
+  final int? id;
+  final String? email;
+  final String? token;
 
-  UserModel({required this.token});
+  UserModel({this.id, this.email, this.token});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(token: json['access_token']);
+    return UserModel(
+      id: json['id'],
+      email: json['email'],
+      token: json['access_token'],
+    );
   }
 }
 

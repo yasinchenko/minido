@@ -1,7 +1,7 @@
 // lib/presentation/providers/auth_provider.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../data/services/auth_service.dart';
-import '../../../data/models/user_model.dart';
+import 'package:minido/data/services/auth_service.dart';
+import 'package:minido/data/models/user_model.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) => AuthService());
 
