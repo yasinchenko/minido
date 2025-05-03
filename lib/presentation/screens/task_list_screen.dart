@@ -43,7 +43,11 @@ class TaskListScreen extends ConsumerWidget {
                 title: const Text('Новая задача'),
                 content: TextField(
                   controller: controller,
-                  decoration: const InputDecoration(labelText: 'Название'),
+                  decoration: const InputDecoration(
+                    labelText: 'Название',
+                    hintText: 'Введите название на любом языке',
+                  ),
+                  style: const TextStyle(fontFamily: 'Roboto'),
                 ),
                 actions: [
                   TextButton(
@@ -77,7 +81,10 @@ class TaskListScreen extends ConsumerWidget {
       itemBuilder: (context, index) {
         final task = tasks[index];
         final tile = ListTile(
-          title: Text(task.title),
+          title: Text(
+            task.title,
+            style: const TextStyle(fontFamily: 'Roboto'),
+          ),
           onTap: () => context.go('/tasks/${task.id}'),
         );
 
