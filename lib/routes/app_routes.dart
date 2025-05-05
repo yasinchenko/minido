@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../presentation/screens/login_screen.dart';
 import '../presentation/screens/task_list_screen.dart';
 import '../presentation/screens/task_detail_screen.dart' as detail;
+import '../presentation/screens/register_screen.dart';
 
 class AppRoutes {
   static final router = GoRouter(
@@ -11,6 +12,10 @@ class AppRoutes {
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(
         path: '/tasks',

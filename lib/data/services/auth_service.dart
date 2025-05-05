@@ -1,4 +1,3 @@
-// lib/data/services/auth_service.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,8 +35,11 @@ class AuthService {
       final data = jsonDecode(response.body);
       final user = UserModel(email: data['email'], id: data['id']);
       return user;
+    } else if (response.statusCode == 409 ||
+        response.body.contains('already')) {
+      throw Exception('Такой пользователь уже существует');
     } else {
-      throw Exception('Ошибка регистрации');
+      throw Exception('Ошибка регистрации: ${response.body}');
     }
   }
 }

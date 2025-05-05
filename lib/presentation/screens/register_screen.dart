@@ -1,15 +1,16 @@
+// lib/presentation/screens/register_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/auth_provider.dart';
 
-class LoginScreen extends ConsumerWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends ConsumerWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
-    final usernameController = TextEditingController();
+    final emailController = TextEditingController();
     final passwordController = TextEditingController();
 
     ref.listen(authStateProvider, (prev, next) {
@@ -17,12 +18,8 @@ class LoginScreen extends ConsumerWidget {
         context.go('/tasks');
       }
       if (next.hasError) {
-        final errorText = next.error.toString();
-        final msg = errorText.contains('409') || errorText.contains('already')
-            ? 'Такой пользователь уже существует'
-            : 'Ошибка входа: $errorText';
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(msg)),
+          SnackBar(content: Text('Ошибка регистрации: ${next.error}')),
         );
       }
     });
@@ -30,7 +27,7 @@ class LoginScreen extends ConsumerWidget {
     final authState = ref.watch(authStateProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Minido - Вход')),
+      appBar: AppBar(title: const Text('Регистрация')),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -39,9 +36,9 @@ class LoginScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                controller: usernameController,
-                decoration: const InputDecoration(labelText: 'Имя пользователя'),
-                validator: (value) => value!.isEmpty ? 'Введите имя' : null,
+                controller: emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
+                validator: (value) => value!.isEmpty ? 'Введите email' : null,
               ),
               TextFormField(
                 controller: passwordController,
@@ -55,18 +52,13 @@ class LoginScreen extends ConsumerWidget {
                   : ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    ref.read(authStateProvider.notifier).login(
-                      usernameController.text,
+                    ref.read(authStateProvider.notifier).register(
+                      emailController.text,
                       passwordController.text,
                     );
                   }
                 },
-                child: const Text('Войти'),
-              ),
-              const SizedBox(height: 20),
-              TextButton(
-                onPressed: () => context.go('/register'),
-                child: const Text('Нет аккаунта? Зарегистрируйтесь'),
+                child: const Text('Зарегистрироваться'),
               ),
             ],
           ),
