@@ -27,6 +27,20 @@ class TaskService {
     }
   }
 
+  Future<List<TaskModel>> getAllTasks() async {
+    final token = await _getToken();
+    final response = await http.get(
+      Uri.parse('$_baseUrl/tasks/all'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as List;
+      return data.map((json) => TaskModel.fromJson(json)).toList();
+    } else {
+      throw Exception('Не удалось загрузить все задачи');
+    }
+  }
+
   Future<List<StageModel>> getTaskStages(int taskId) async {
     final token = await _getToken();
     final response = await http.get(
@@ -82,5 +96,4 @@ class TaskService {
       throw Exception('Не удалось создать задачу');
     }
   }
-
 }
