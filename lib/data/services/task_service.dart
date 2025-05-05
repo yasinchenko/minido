@@ -73,7 +73,7 @@ class TaskService {
 
   Future<void> archiveTask(int id) async {
     final token = await _getToken();
-    final response = await http.post(
+    final response = await http.patch(
       Uri.parse('$_baseUrl/tasks/$id/archive'),
       headers: {'Authorization': 'Bearer $token'},
     );
